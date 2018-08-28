@@ -13,14 +13,14 @@ namespace Divido.Net.Sdk.Tests
         {
             var httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://secure.sandbox.divido.com/v1")
+                BaseAddress = new Uri("https://secure.sandbox.divido.com")
             };
 
             var dividoApiHttpClient = new DividoApiHttpClient(httpClient);
 
             var result = await dividoApiHttpClient.GetFinances();
 
-            result.Status.Should().Be("success");
+            result.Status.Should().Be("ok");
         }
     }
 }

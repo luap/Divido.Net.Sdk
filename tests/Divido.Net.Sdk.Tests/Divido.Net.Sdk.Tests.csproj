@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="nunit" Version="3.10.1" />
     <PackageReference Include="nunit3testadapter" Version="3.10.0" />
   </ItemGroup>
