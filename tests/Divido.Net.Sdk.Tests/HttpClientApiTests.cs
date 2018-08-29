@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -66,7 +67,7 @@ namespace Divido.Net.Sdk.Tests
 
             var endpoint = "/endpoint";
 
-            await client.PostAsync<SomeTestResponse>(endpoint, new {}, CancellationToken.None);
+            await client.PostAsync<SomeTestResponse>(endpoint, new Dictionary<string, string>(), CancellationToken.None);
 
             handler.ReceivedRequests
                 .First()
@@ -86,7 +87,7 @@ namespace Divido.Net.Sdk.Tests
 
             var client = CreateClient(handler);
 
-            await client.PostAsync<SomeTestResponse>("endpoint", new { Foo = "Bar" }, CancellationToken.None);
+            await client.PostAsync<SomeTestResponse>("endpoint", new Dictionary<string, string>(), CancellationToken.None);
 
             handler.ReceivedRequests
                 .First()

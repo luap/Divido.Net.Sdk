@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Divido.Net.Sdk.Models;
 using Moq;
@@ -25,7 +26,35 @@ namespace Divido.Net.Sdk.Tests
 
             await dividoApiHttpClient.GetFinancePlans(CancellationToken.None);
 
-            apiClient.Verify(x => x.GetAsync<FinancesResponse>(expectedEndpoint, CancellationToken.None), Times.Once);
+            apiClient.Verify(x => 
+                x.GetAsync<FinancesResponse>(
+                    expectedEndpoint, 
+                    CancellationToken.None), Times.Once);
+        }
+
+        [Test]
+        public async Task GivenACreditRequest_WhenCreditRequestIsCalled_ThenPostAsyncIsCalledWithEndpoint()
+        {
+            var apiKey = "abc";
+            var expectedEndpoint = $"v1/creditrequest";
+
+            var apiClient = new Mock<IApiClient>();
+
+            apiClient.Setup(x =>
+                x.PostAsync<CreditRequestResponse>(
+                    It.IsAny<string>(),
+                    It.IsAny<IEnumerable<KeyValuePair<string, string>>>(),
+                    It.IsAny<CancellationToken>())).ReturnsAsync(new CreditRequestResponse());
+
+            var dividoApiHttpClient = new DividoApiClient(apiClient.Object, apiKey);
+
+            await dividoApiHttpClient.CreditRequest(new CreditRequest(), CancellationToken.None);
+
+            apiClient.Verify(x => 
+                x.PostAsync<CreditRequestResponse>(
+                    expectedEndpoint,
+                    It.IsAny<IEnumerable<KeyValuePair<string, string>>>(),
+                    CancellationToken.None), Times.Once);
         }
     }
 }

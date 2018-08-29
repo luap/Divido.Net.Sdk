@@ -1,11 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 
 namespace Divido.Net.Sdk
 {
@@ -19,8 +17,8 @@ namespace Divido.Net.Sdk
         }
 
         public Task<TOk> PostAsync<TOk>(
-            string endpoint, 
-            object content,
+            string endpoint,
+            IEnumerable<KeyValuePair<string, string>> content,
             CancellationToken cancel)
         {
             return BuildAndSend(Deserialize<TOk>, HttpMethod.Post, endpoint, content, cancel);
@@ -49,12 +47,12 @@ namespace Divido.Net.Sdk
             Func<string, TOk> deserialize,
             HttpMethod method,
             string endpoint,
-            object content,
+            IEnumerable<KeyValuePair<string, string>> content,
             CancellationToken cancel)
         {
             using (var request = new HttpRequestMessage(method, endpoint))
             {
-                request.Content = new StringContent(SerializeToJson(content), Encoding.UTF8, "application/json");
+                request.Content = new FormUrlEncodedContent(content);
 
                 return await SendAsync(deserialize, request, cancel);
             }
@@ -83,13 +81,6 @@ namespace Divido.Net.Sdk
             }
 
             throw new Exception("Failed to DeserializeObject");
-        }
-
-        private string SerializeToJson(object content)
-        {
-            var settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
-            settings.Converters.Add(new StringEnumConverter());
-            return JsonConvert.SerializeObject(content, settings);
         }
     }
 }
