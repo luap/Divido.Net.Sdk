@@ -33,6 +33,37 @@ namespace Divido.Net.Sdk.Tests
         }
 
         [Test]
+        public async Task GivenADealsRequest_WhenGetDealsIsCalled_ThenGetAsyncIsCalledWithEndpoint()
+        {
+            var apiKey = "abc";
+
+            var dealsRequest = new DealsRequest
+            {
+                FinanceId = "someid",
+                Amount = 123m,
+                Deposit = 10m
+            };
+
+            var expectedEndpoint = $"v1/dealcalculator?merchant={apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country=GB&finance={dealsRequest.FinanceId}";
+
+            var apiClient = new Mock<IApiClient>();
+
+            apiClient.Setup(x =>
+                x.GetAsync<DealsResponse>(
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>())).ReturnsAsync(new DealsResponse());
+
+            var dividoApiHttpClient = new DividoApiClient(apiClient.Object, apiKey);
+
+            await dividoApiHttpClient.GetDeals(dealsRequest, CancellationToken.None);
+
+            apiClient.Verify(x =>
+                x.GetAsync<DealsResponse>(
+                    expectedEndpoint,
+                    CancellationToken.None), Times.Once);
+        }
+
+        [Test]
         public async Task GivenACreditRequest_WhenCreditRequestIsCalled_ThenPostAsyncIsCalledWithEndpoint()
         {
             var apiKey = "abc";
