@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Divido.Net.Sdk.Models;
+using Divido.Net.Sdk.Models.CreditRequest;
+using Divido.Net.Sdk.Models.DealCalculator;
+using Divido.Net.Sdk.Models.Finances;
 
 namespace Divido.Net.Sdk
 {
@@ -23,6 +25,15 @@ namespace Divido.Net.Sdk
             var endpoint = $"v1/finances?merchant={_apiKey}";
 
             return await _apiClient.GetAsync<FinancesResponse>(
+                endpoint,
+                token);
+        }
+
+        public async Task<DealsResponse> GetDeals(DealsRequest dealsRequest, CancellationToken token)
+        {
+            var endpoint = $"v1/dealcalculator?merchant={_apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country=GB&finance={dealsRequest.FinanceId}";
+
+            return await _apiClient.GetAsync<DealsResponse>(
                 endpoint,
                 token);
         }

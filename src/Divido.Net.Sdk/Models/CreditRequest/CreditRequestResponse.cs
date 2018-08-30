@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Divido.Net.Sdk.Models
+namespace Divido.Net.Sdk.Models.CreditRequest
 {
     public class CreditRequestResponse
     {

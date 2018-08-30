@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Divido.Net.Sdk.Models
+namespace Divido.Net.Sdk.Models.Finances
 {
     public class FinancesResponse
     {
