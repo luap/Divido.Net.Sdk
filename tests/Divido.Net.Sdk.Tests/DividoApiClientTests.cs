@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Divido.Net.Sdk.Models;
+using Divido.Net.Sdk.Models.CreditRequest;
+using Divido.Net.Sdk.Models.DealCalculator;
+using Divido.Net.Sdk.Models.Finances;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
