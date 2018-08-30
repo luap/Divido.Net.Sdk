@@ -1,4 +1,7 @@
-﻿namespace Divido.Net.Sdk.Models.CreditRequest
+﻿using System;
+using System.Collections.Generic;
+
+namespace Divido.Net.Sdk.Models.CreditRequest
 {
     public class CreditRequest
     {
@@ -17,5 +20,15 @@
         public decimal Amount { get; set; }
 
         public string Reference { get; set; }
+
+        public Customer Customer { get; set; }
+
+        public List<Product> Products { get; set; } = new List<Product>();
+
+        public Uri ResponseUri { get; set; }
+
+        public Uri CheckoutUri { get; set; }
+
+        public Uri RedirectUri { get; set; }
     }
 }
