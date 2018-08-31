@@ -6,7 +6,7 @@ using Divido.Net.Sdk.Models.Finances;
 
 namespace Divido.Net.Sdk
 {
-    interface IDividoApi
+    public interface IDividoApi
     {
         Task<FinancesResponse> GetFinancePlans(CancellationToken token);
 
