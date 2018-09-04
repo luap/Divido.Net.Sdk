@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Divido.Net.Sdk.Models.CreditRequest;
 using Divido.Net.Sdk.Models.DealCalculator;
 using Divido.Net.Sdk.Models.Finances;
+using Divido.Net.Sdk.Models.WebHooks;
 
 namespace Divido.Net.Sdk
 {
@@ -49,6 +50,11 @@ namespace Divido.Net.Sdk
                 endpoint,
                 request,
                 token);
+        }
+
+        public WebHookEvent Deserialize(string json)
+        {
+            return _apiClient.Deserialize<WebHookEvent>(json);
         }
 
         private List<KeyValuePair<string, string>> BuildRequestParameters(CreditRequest creditRequest)

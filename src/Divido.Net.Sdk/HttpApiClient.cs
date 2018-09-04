@@ -71,9 +71,15 @@ namespace Divido.Net.Sdk
             }
         }
 
-        private TOk Deserialize<TOk>(string json)
+        public TOk Deserialize<TOk>(string json)
         {
-            var deserialized = JsonConvert.DeserializeObject<TOk>(json);
+            var deserialized = JsonConvert.DeserializeObject<TOk>(json, new JsonSerializerSettings
+            {
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+                DateParseHandling = DateParseHandling.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore
+            });
 
             if (deserialized != null)
             {
