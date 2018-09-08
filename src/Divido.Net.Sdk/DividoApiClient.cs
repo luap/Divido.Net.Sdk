@@ -33,7 +33,7 @@ namespace Divido.Net.Sdk
 
         public async Task<DealsResponse> GetDeals(DealsRequest dealsRequest, CancellationToken token)
         {
-            var endpoint = $"v1/dealcalculator?merchant={_apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country=GB&finance={dealsRequest.FinanceId}";
+            var endpoint = $"v1/dealcalculator?merchant={_apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country={dealsRequest.CurrencyCode}&finance={dealsRequest.FinanceId}";
 
             return await _apiClient.GetAsync<DealsResponse>(
                 endpoint,
@@ -62,13 +62,13 @@ namespace Divido.Net.Sdk
             var request = new[]
             {
                 new KeyValuePair<string, string>("merchant", _apiKey),
-                new KeyValuePair<string, string>("deposit", creditRequest.Deposit.ToString("F")),
+                new KeyValuePair<string, string>("deposit", creditRequest.Deposit.ToString("{0:C}")),
                 new KeyValuePair<string, string>("finance", creditRequest.FinanceId),
                 new KeyValuePair<string, string>("directSign", creditRequest.DirectSign.ToString()),
                 new KeyValuePair<string, string>("country", creditRequest.Country),
                 new KeyValuePair<string, string>("language", creditRequest.Language),
-                new KeyValuePair<string, string>("currency", creditRequest.Currency),
-                new KeyValuePair<string, string>("amount", creditRequest.Amount.ToString("F")),
+                new KeyValuePair<string, string>("currency", creditRequest.CurrencyCode),
+                new KeyValuePair<string, string>("amount", creditRequest.Amount.ToString("{0:C}")),
                 new KeyValuePair<string, string>("reference", creditRequest.Reference),
                 new KeyValuePair<string, string>("responseUrl", creditRequest.ResponseUri?.AbsoluteUri),
                 new KeyValuePair<string, string>("checkoutUrl", creditRequest.CheckoutUri?.AbsoluteUri),
@@ -89,9 +89,9 @@ namespace Divido.Net.Sdk
                 {
                     request.Add(new KeyValuePair<string, string>($"products[{i}][name]", product.Name));
                     request.Add(new KeyValuePair<string, string>($"products[{i}][sku]", product.Sku));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][price]", product.Price.ToString("F")));
+                    request.Add(new KeyValuePair<string, string>($"products[{i}][price]", product.Price.ToString("{0:C}")));
                     request.Add(new KeyValuePair<string, string>($"products[{i}][quantity]", product.Quantity.ToString()));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][vat]", product.Vat.ToString("F")));
+                    request.Add(new KeyValuePair<string, string>($"products[{i}][vat]", product.Vat.ToString("{0:C}")));
                 }
             }
         }

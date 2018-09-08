@@ -7,6 +7,9 @@ namespace Divido.Net.Sdk.Models.DealCalculator
         [JsonProperty("status")]
         public string Status { get; set; }
 
+        [JsonProperty("error")]
+        public string Error { get; set; }
+
         [JsonProperty("record")]
         public Record Record { get; set; }
 

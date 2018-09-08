@@ -10,6 +10,9 @@ namespace Divido.Net.Sdk.Models.CreditRequest
         [JsonProperty("status")]
         public string Status { get; set; }
 
+        [JsonProperty("error")]
+        public string Error { get; set; }
+
         [JsonProperty("token")]
         public string Token { get; set; }
 

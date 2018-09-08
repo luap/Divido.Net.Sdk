@@ -15,7 +15,7 @@ namespace Divido.Net.Sdk.Models.CreditRequest
 
         public string Language { get; set; }
 
-        public string Currency { get; set; }
+        public string CurrencyCode { get; set; }
 
         public decimal Amount { get; set; }
 
