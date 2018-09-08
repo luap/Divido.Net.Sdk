@@ -46,7 +46,8 @@ namespace Divido.Net.Sdk.Tests
             {
                 FinanceId = "someid",
                 Amount = 123m,
-                Deposit = 10m
+                Deposit = 10m,
+                CurrencyCode = "GB"
             };
 
             var expectedEndpoint = $"v1/dealcalculator?merchant={apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country=GB&finance={dealsRequest.FinanceId}";
@@ -91,37 +92,6 @@ namespace Divido.Net.Sdk.Tests
                     expectedEndpoint,
                     It.IsAny<IEnumerable<KeyValuePair<string, string>>>(),
                     CancellationToken.None), Times.Once);
-        }
-
-        [Test]
-        public async Task IntegrationTest()
-        {
-            var dividoClient = new DividoApiClient(new HttpApiClient(new HttpClient
-            {
-                BaseAddress = new Uri("https://secure.sandbox.divido.com/")
-            }), "sandbox_ce76e7e1.f5c13c3c7b12cd8803946400518cfe6f");
-
-            var result = await dividoClient.CreditRequest(new CreditRequest
-            {
-                Country = "GB",
-                Currency = "GBP",
-                Amount = 1233.12m,
-                FinanceId = "d93c1e98-ae4d-4c81-aea2-00bef931e2a1",
-                Reference = "Func test",
-                Language = "EN",
-                Deposit = 0m,
-                DirectSign = false,
-                Customer = new Customer
-                {
-                    Gender = Gender.Male,
-                    FirstName = "Boris",
-                    LastName = "Johnson",
-                    Email = "tits@brexit.com",
-                    PhoneNumber = "32389472934"
-                }
-            }, CancellationToken.None);
-
-            result.Status.Should().Be("ok");
         }
     }
 }
