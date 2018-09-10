@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,13 +63,13 @@ namespace Divido.Net.Sdk
             var request = new[]
             {
                 new KeyValuePair<string, string>("merchant", _apiKey),
-                new KeyValuePair<string, string>("deposit", creditRequest.Deposit.ToString("{0:C}")),
+                new KeyValuePair<string, string>("deposit", creditRequest.Deposit.ToString(CultureInfo.InvariantCulture)),
                 new KeyValuePair<string, string>("finance", creditRequest.FinanceId),
                 new KeyValuePair<string, string>("directSign", creditRequest.DirectSign.ToString()),
                 new KeyValuePair<string, string>("country", creditRequest.Country),
                 new KeyValuePair<string, string>("language", creditRequest.Language),
                 new KeyValuePair<string, string>("currency", creditRequest.CurrencyCode),
-                new KeyValuePair<string, string>("amount", creditRequest.Amount.ToString("{0:C}")),
+                new KeyValuePair<string, string>("amount", creditRequest.Amount.ToString(CultureInfo.InvariantCulture)),
                 new KeyValuePair<string, string>("reference", creditRequest.Reference),
                 new KeyValuePair<string, string>("responseUrl", creditRequest.ResponseUri?.AbsoluteUri),
                 new KeyValuePair<string, string>("checkoutUrl", creditRequest.CheckoutUri?.AbsoluteUri),
@@ -89,9 +90,9 @@ namespace Divido.Net.Sdk
                 {
                     request.Add(new KeyValuePair<string, string>($"products[{i}][name]", product.Name));
                     request.Add(new KeyValuePair<string, string>($"products[{i}][sku]", product.Sku));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][price]", product.Price.ToString("{0:C}")));
+                    request.Add(new KeyValuePair<string, string>($"products[{i}][price]", product.Price.ToString(CultureInfo.InvariantCulture)));
                     request.Add(new KeyValuePair<string, string>($"products[{i}][quantity]", product.Quantity.ToString()));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][vat]", product.Vat.ToString("{0:C}")));
+                    request.Add(new KeyValuePair<string, string>($"products[{i}][vat]", product.Vat.ToString(CultureInfo.InvariantCulture)));
                 }
             }
         }
