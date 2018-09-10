@@ -5,6 +5,6 @@
         public decimal Amount { get; set; }
         public decimal Deposit { get; set; }
         public string FinanceId { get; set; }
-        public string CurrencyCode { get; set; }
+        public string Country { get; set; }
     }
 }

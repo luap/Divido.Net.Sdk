@@ -33,7 +33,7 @@ namespace Divido.Net.Sdk
 
         public async Task<DealsResponse> GetDeals(DealsRequest dealsRequest, CancellationToken token)
         {
-            var endpoint = $"v1/dealcalculator?merchant={_apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country={dealsRequest.CurrencyCode}&finance={dealsRequest.FinanceId}";
+            var endpoint = $"v1/dealcalculator?merchant={_apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country={dealsRequest.Country}&finance={dealsRequest.FinanceId}";
 
             return await _apiClient.GetAsync<DealsResponse>(
                 endpoint,

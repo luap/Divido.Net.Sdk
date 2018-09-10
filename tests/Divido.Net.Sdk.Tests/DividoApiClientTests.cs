@@ -47,7 +47,7 @@ namespace Divido.Net.Sdk.Tests
                 FinanceId = "someid",
                 Amount = 123m,
                 Deposit = 10m,
-                CurrencyCode = "GB"
+                Country = "GB"
             };
 
             var expectedEndpoint = $"v1/dealcalculator?merchant={apiKey}&amount={dealsRequest.Amount}&deposit={dealsRequest.Deposit}&country=GB&finance={dealsRequest.FinanceId}";
