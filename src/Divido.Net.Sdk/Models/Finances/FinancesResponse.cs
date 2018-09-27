@@ -7,5 +7,7 @@ namespace Divido.Net.Sdk.Models.Finances
         public IEnumerable<Finance> Finances { get; set; }
 
         public string Status { get; set; }
+
+        public string Error { get; set; }
     }
 }
