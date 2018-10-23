@@ -84,7 +84,7 @@ namespace Divido.Net.Sdk
 
         private void AddProducts(ref List<KeyValuePair<string, string>> request, List<Product> products)
         {
-            for (var i = 0; i < products.Count; i++)
+            for (var i = 1; i <= products.Count; i++)
             {
                 foreach (var product in products)
                 {
