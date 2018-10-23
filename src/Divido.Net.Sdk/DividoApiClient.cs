@@ -58,7 +58,7 @@ namespace Divido.Net.Sdk
             return _apiClient.Deserialize<WebHookEvent>(json);
         }
 
-        private List<KeyValuePair<string, string>> BuildRequestParameters(CreditRequest creditRequest)
+        public List<KeyValuePair<string, string>> BuildRequestParameters(CreditRequest creditRequest)
         {
             var request = new[]
             {
@@ -84,16 +84,14 @@ namespace Divido.Net.Sdk
 
         private void AddProducts(ref List<KeyValuePair<string, string>> request, List<Product> products)
         {
-            for (var i = 1; i <= products.Count; i++)
+            for (var i = 0; i < products.Count; i++)
             {
-                foreach (var product in products)
-                {
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][name]", product.Name));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][sku]", product.Sku));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][price]", product.Price.ToString(CultureInfo.InvariantCulture)));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][quantity]", product.Quantity.ToString()));
-                    request.Add(new KeyValuePair<string, string>($"products[{i}][vat]", product.Vat.ToString(CultureInfo.InvariantCulture)));
-                }
+                var index = i + 1;
+                request.Add(new KeyValuePair<string, string>($"products[{index}][name]", products[i].Name));
+                request.Add(new KeyValuePair<string, string>($"products[{index}][sku]", products[i].Sku));
+                request.Add(new KeyValuePair<string, string>($"products[{index}][price]", products[i].Price.ToString(CultureInfo.InvariantCulture)));
+                request.Add(new KeyValuePair<string, string>($"products[{index}][quantity]", products[i].Quantity.ToString()));
+                request.Add(new KeyValuePair<string, string>($"products[{index}][vat]", products[i].Vat.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
